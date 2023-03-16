@@ -248,6 +248,7 @@ if (count($formations) > 0) {
                                                 <td class="id_formation"><?php echo $formation['Matricule']  ?></td>
                                                 <td class="name_formation"><?php echo $formation['Nom']  ?></td>
                                                 <td class="name_formation"><?php echo $formation['Prenom']  ?></td>
+                                                <td class="text-center"><button class="btn btn-primary">show</button></td>
                                             </tr>
                                         <?php
                                         }
