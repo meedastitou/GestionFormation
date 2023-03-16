@@ -182,7 +182,7 @@ if (count($formations) > 0) {
                 </div>
                 <?php
                 for ($i = 1; $i <= $_POST['numberGroupe']; $i++) {
-                    $stmt = $con->prepare(" SELECT employe.* , partisipe.timeStart, partisipe.timeFin, partisipe.date 
+                    $stmt = $con->prepare(" SELECT employe.* , partisipe.timeStart, partisipe.timeFin, partisipe.date , partisipe.id
                                             FROM partisipe 
                                             INNER JOIN employe ON employe.Matricule=partisipe.Matricule
                                             WHERE partisipe.id_formation  = ? 
@@ -235,9 +235,10 @@ if (count($formations) > 0) {
                                 <table class="table table-striped table-hover table-bordered">
                                     <thead>
                                         <tr class="align-middle">
-                                            <th class="id_formation">#</th>
+                                            <th class="id_formation">M</th>
                                             <th class="name_formation">formation name</th>
                                             <th class="name_formation">formation categorie</th>
+                                            <th class="control">EvaluationChaud</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -245,10 +246,10 @@ if (count($formations) > 0) {
                                         foreach ($formations as $formation) {
                                         ?>
                                             <tr>
-                                                <td class="id_formation"><?php echo $formation['Matricule']  ?></td>
-                                                <td class="name_formation"><?php echo $formation['Nom']  ?></td>
-                                                <td class="name_formation"><?php echo $formation['Prenom']  ?></td>
-                                                <td class="text-center"><button class="btn btn-primary">show</button></td>
+                                                <td class="id_formation align-middle"><?php echo $formation['Matricule']  ?></td>
+                                                <td class="name_formation align-middle"><?php echo $formation['Nom']  ?></td>
+                                                <td class="name_formation align-middle"><?php echo $formation['Prenom']  ?></td>
+                                                <td class="text-center"><a class="btn btn-primary" href="?do=view&idP=<?php echo $formation['id']?>">show</a></td>
                                             </tr>
                                         <?php
                                         }
@@ -692,6 +693,166 @@ if (count($formations) > 0) {
                 }
             }
         }
+    } elseif($do == 'view'){
+        $idP = $_GET['idP'];
+        $stmt = $con->prepare("SELECT * FROM `evaluation_chaud` WHERE id_participe = ?");
+        $stmt->execute(array($idP));
+        $EsChaud = $stmt->fetch();
+        ?>
+
+        <div class="container evaluationChaud page-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="fw-bold px-2 align-middle">Condition de realisation</th>
+                        <th class="th-min text-center align-middle">pas du tout satisfait</th>
+                        <th class="th-min text-center align-middle">Peu satisfait</th>
+                        <th class="th-min text-center align-middle">Moyennement satisfait</th>
+                        <th class="th-min text-center align-middle">Tout a fait satisfait</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-6">1. L'information concernant la formation a ete complete</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q1'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q1'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q1'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q1'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">2. La duree et le rythme de formation etaient conformes a ce qui a ete annonce</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q2'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q2'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q2'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q2'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">3. Les documents annonces ont ete remis aux paticipants</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q3'] == '1') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q3'] == '2') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q3'] == '3') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q3'] == '4') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">4. Les documtens remis constituent une aide a l'assimilation des contenus</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q4'] == '1') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q4'] == '2') echo 'checked'; else echo 'disabled';?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q4'] == '3') echo 'checked'; else echo 'disabled';?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q4'] == '4') echo 'checked'; else echo 'disabled';?>  ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">5. Les contenus de la formation etainet adaptes a mon niveau initial</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['5'] == '1') echo 'checked'; else echo 'disabled';?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['5'] == '2') echo 'checked'; else echo 'disabled';?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['5'] == '3') echo 'checked'; else echo 'disabled';?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['5'] == '4') echo 'checked'; else echo 'disabled';?>  ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">6. Les conditions materielles (locaux, restauration, facilite d'acces, etc.) etaient satisfaisantes</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q6'] == '1') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q6'] == '2') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q6'] == '3') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q6'] == '4') echo 'checked'; else echo 'disabled'; ?>  ></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th class="fw-bold px-2 align-middle">Competences techniques et pedagogiques</th>
+                        <th class="th-min text-center align-middle">pas du tout satisfait</th>
+                        <th class="th-min text-center align-middle">Peu satisfait</th>
+                        <th class="th-min text-center align-middle">Moyennement satisfait</th>
+                        <th class="th-min text-center align-middle">Tout a fait satisfait</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-6">7. Le formateur dispose des comperences techniques necessaires</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q7'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q7'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q7'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q7'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">8. Le formateur dispose des competences pedagogique</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q8'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q8'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q8'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q8'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">9. Le formateur a su creer ou entretenir une ambiance agreable dans le groupe en formation</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q9'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q9'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q9'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q9'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">10. Les moyens pedagogiques etaient adaptes au contenu de la formation</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q10'] == '1') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q10'] == '2') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q10'] == '3') echo 'checked'; else echo 'disabled'; ?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false"<?php if($EsChaud['q10'] == '4') echo 'checked'; else echo 'disabled'; ?> ></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th class="fw-bold px-2 align-middle">Atteinte des objectifs</th>
+                        <th class="th-min text-center align-middle">pas du tout satisfait</th>
+                        <th class="th-min text-center align-middle">Peu satisfait</th>
+                        <th class="th-min text-center align-middle">Moyennement satisfait</th>
+                        <th class="th-min text-center align-middle">Tout a fait satisfait</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-6">11. Les objectifs de la formation correspondent a mes besoins professionnels</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q11'] == '1') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q11'] == '2') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q11'] == '3') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q11'] == '4') echo 'checked'; else echo 'disabled';?> ></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-6">12. D'une maniere generale, cette formation me permettra d'ameliorer mes competences professionnelles</td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q12'] == '1') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q12'] == '2') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q12'] == '3') echo 'checked'; else echo 'disabled';?> ></td>
+                        <td class="text-center"><input type="checkbox" onClick="return false" <?php if($EsChaud['q12'] == '4') echo 'checked'; else echo 'disabled';?> ></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="background-color: #bbbbbb;">SUGGESTIONS POUR AMELIORER CETTE FORMATON <span class="">(Optionel)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 
+                            <ul>
+                                <li class="my-2"><input type="text" value="<?php echo $EsChaud['suggestion_1']; ?>" style="width:90%"></li>
+                                <li class="mb-2"><input type="text" value="<?php echo $EsChaud['suggestion_2']; ?>" style="width:90%"></li>
+                                <li class="mb-2"><input type="text" value="<?php echo $EsChaud['suggestion_3']; ?>" style="width:90%"></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script>
+            function readOnlyCheckBox() {
+                return false;
+            }
+        </script>
+        <?php
+
     }
 } else {
     header("location: login.php");
