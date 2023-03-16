@@ -1,0 +1,24 @@
+/*
+**
+** fucnton displayFormation  v1.0
+** get Data from Database after delete a formation
+** and display it in table
+**  retturn 
+**  args
+**      non args
+**
+*/
+function displayFormation(){
+    $.ajax({
+        url: "synchro.php",
+        type: "post",
+        data: {
+            synchronisation: "",
+            do:'selectBetween'
+            
+        },
+        success:function(data, status){
+            $("#table_body").html(data);
+        }
+    });
+}

@@ -1,0 +1,259 @@
+/* 
+
+
+*/
+
+/* Start Ruuls */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f4f4f4b8;
+}
+
+.displayMsgSynchro {
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px;
+    position: fixed;
+    background-color: rgb(255 90 90 / 90%);
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 0 1px 7px #000000cf;
+    transform: translateY(-110%);
+    transition: all .9s;
+    opacity: 0;
+}
+
+.displayMsgSynchro.show {
+    transform: translateY(0);
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.displayMsgSynchro div {
+    margin-right: 15px;
+    padding: 0 10px;
+    border-right: 1px solid;
+}
+
+.displayMsgSynchro i {
+    font-size: 2rem;
+    color: red;
+    border: 3px solid red;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+.no-border {
+    border: none;
+    outline: none;
+    width: 50px;
+    background-color: transparent;
+}
+
+.page-content {
+    padding: calc(70px + 1.5rem) calc(1.5rem * .5) 60px calc(1.5rem * .5)
+}
+
+[data-layout=horizontal] .page-content {
+    padding: calc(45px + 1.5rem) calc(1.5rem / 2) 60px calc(1.5rem / 2)
+}
+
+@media (min-width:1024.1px) {
+    [data-layout=horizontal] .page-content {
+        margin-top: 70px
+    }
+}
+
+@media (min-width:1024.1px) {
+    [data-layout=horizontal][data-layout-width=boxed] .page-content {
+        min-height: calc(100vh - 130px)
+    }
+}
+
+.bg-w {
+    background-color: #fff;
+}
+
+.cl-w {
+    color: #fff;
+}
+
+.bg-p {
+    background-color: #865ce2;
+}
+
+.cl-r {
+    color: red;
+}
+
+.input-shadow {
+    box-shadow: 0px 2px 5px #000;
+}
+
+.b-r-10 {
+    border-radius: 10px;
+}
+.fw-6{
+    font-weight: 600;
+}
+
+.card-animate {
+    -webkit-transition: all .4s;
+    transition: all .4s
+}
+
+.card-animate:hover {
+    -webkit-transform: translateY(calc(-1.5rem / 5));
+    transform: translateY(calc(-1.5rem / 5));
+    -webkit-box-shadow: 0 5px 10px rgba(30, 32, 37, .12);
+    box-shadow: 0 5px 10px rgba(30, 32, 37, .12)
+}
+
+.widgets {
+    font-size: .89rem !important;
+}
+
+@media print {
+    @page :footer {
+        display: none
+    }
+
+    @page :header {
+        display: none
+    }
+    body {margin-top:0 !important;}
+}
+i
+
+/* End Ruuls */
+
+
+/* Page Index */
+.id_formation {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+.name_formation {
+    width: 174px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 174px !important;
+}
+
+.propose_formation {
+    width: 274px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 274px !important;
+}
+
+.ex_in_formation {
+    width: 100px !important;
+    max-width: 100px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date_start {
+    width: 135px !important;
+    max-width: 135px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.duree_formation {
+    width: 90px !important;
+    max-width: 90px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select2-container--open .select2-dropdown--below {
+    z-index: 10000 !important;
+}
+
+/* End Page Index */
+
+/* Details Page */
+
+.table-responsive-y {
+    height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* End Details Page */
+
+/* Start Imprimer Page */
+
+.header-imprimer{
+    height: 135px;
+    max-height: 135px;
+    min-height: 135px;
+}
+.enregistrement {
+    height: 45px;
+    line-height: 45px;
+    font-size: 20px;
+    font-family: 600;
+    font-weight: 600;
+    font-style: italic;
+    border: 1px solid;
+}
+.fichepresence{
+    height: 90px;
+    line-height: 90px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid;
+}
+.left-header-imprimer{
+    line-height: 135px;
+    text-align: center;
+    border: 1px solid;
+}
+.right-header-imprimer{
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid;
+    font-size: 13px;
+
+}
+.imprimer h6{
+    font-size: 14px;
+    font-weight: 600;
+}
+/* End Imprimer Page */
+
+/* Start Evualition Chaud  page*/
+.th-min{
+    font-size: 12px;
+    width: 122px;
+    background-color: #bbbbbb !important;
+}
+.evaluationChaud td ,.evaluationChaud th {
+    border: 1px solid;
+}
+thead tr th{
+    padding: 0 !important;
+}
+tbody tr td {
+    padding: 3px 12px !important;
+}
+/* End  Evualition Chaud  page*/
