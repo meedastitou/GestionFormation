@@ -103,6 +103,7 @@ body{
 .widgets{
     font-size: .89rem !important;
 }
+
 /* End Ruuls */
 
 
@@ -270,6 +271,13 @@ body{
     border-radius: 3px solid black !important;
     border-radius: 50%;
     background-color: #ffb6b6;
+}
+.input_filter{
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid;
+    outline: none;
+    border-radius: 6px;
 }
 .id_formation{
     width: 70px !important;

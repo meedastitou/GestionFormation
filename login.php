@@ -2,6 +2,8 @@
 session_start();
 $pageTitle = "Login";
 
+
+echo $_SESSION['existGood'] . " " . $_SESSION['email'] . " " . $_SESSION['role'];
 if(isset($_SESSION['existGood']) && isset($_SESSION['email']) && isset($_SESSION['role'])){
     header('Location: index.php'); // redirect To index Page
 }

@@ -76,7 +76,7 @@ function validation($formationName, $formationCat, $objectif, $proposedBy, $numb
         $formErrors[] = 'proposed By Cant Be <strong> Empty</strong>';
     }
     if (empty($numberHoures) || $numberHoures < 0) {
-        $formErrors[] = 'Country Cant Be  <strong> Empty</strong> OR <strong>Less Then 1</strong>';
+        $formErrors[] = 'Number Houres Cant Be  <strong> Empty</strong> OR <strong>Less Then 1</strong>';
     }
     if (empty($trainerName)) {
         $formErrors[] = 'trainer Name Cant Be <strong> Empty</strong>';

@@ -316,11 +316,12 @@ function getFormationResponsible($matricule)
 {
     global $con;
 
-    $stmt = $con->prepare("SELECT * FROM formation WHERE responsable = ?");
+    $stmt = $con->prepare("SELECT * FROM formation WHERE responsable = ? AND date_debut != '0000-00-00'");
     $stmt->execute(array($matricule));
     $formations = $stmt->fetchAll();
     return $formations;
 }
+
 function exist_Mat_Code($matricule, $code){
     global $con;
     $stmt = $con->prepare("SELECT id_formation FROM `partisipe` WHERE Matricule = ? AND code = ? ");
@@ -369,4 +370,10 @@ function InsertEvaluationChaud($idParticipe, $q1, $q2, $q3, $q4, $q5, $q6, $q7, 
     ));
     return $stmt->rowCount();
 }
-// SELECT * FROM partisipe WHERE Matricule NOT IN (SELECT Matricule FROM partisipe WHERE id_formation = 2);
+
+function formationRealize($id_formation, $responsable){
+    global $con;
+    $stmt = $con->prepare("UPDATE `formation` SET realize = '1' WHERE id_formation = ? AND responsable = ?");
+    $stmt->execute(array($id_formation, $responsable));
+    return $stmt->rowCount();    
+}

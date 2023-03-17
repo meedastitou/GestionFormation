@@ -37,6 +37,7 @@ function Insert(
     $formationName,
     $formationCat,
     $proposedBy,
+    $year,
     $numberHoures,
     $trainerName,
     $trainerNumber,
@@ -57,6 +58,7 @@ function Insert(
                                 (nom_formation, 
                                 categorie_formation, 
                                 objectif,
+                                year,
                                 date_debut, 
                                 date_fin, 
                                 formation_EX_IN,
@@ -75,6 +77,7 @@ function Insert(
                                 :znom_formation,
                                 :zcategorie_formation,
                                 :zobjectif,
+                                :zyear,
                                 :zdate_debut,
                                 :zdate_fin, 
                                 :zformation_EX_IN,
@@ -93,6 +96,7 @@ function Insert(
         ':znom_formation'       => $formationName,
         ':zcategorie_formation' => $formationCat,
         ':zobjectif'            => $objectif,
+        ':zyear'                => $year,
         ':zdate_debut'          => $dateStart,
         ':zdate_fin'            => $dateFin,
         ':zformation_EX_IN'     => $formation_EX_IN,
@@ -265,15 +269,41 @@ function Update(
 
     return $stmt->rowCount();
 }
-
-function getCount(){
+// v2
+function getCount($where = '1=1'){
     global $con;
-
-    $stmt = $con->prepare("SELECT COUNT(id_formation) FROM `formation`");
+    $stmt = $con->prepare("SELECT COUNT(id_formation) FROM `formation` WHERE $where");
     $stmt->execute();
 
     $count = $stmt->fetchColumn(0);
 
     return $count;
 }
+// SELECT COUNT(*) FROM `formation` WHERE `date_debut` > '2023/1/1'
+
+
+
+
+function getByIdWithEmp($id_formation)
+{
+    global $con;
+    $stmt = $con->prepare("SELECT formation.*, employe.Nom, employe.Prenom 
+                            FROM formation 
+                            INNER JOIN employe ON employe.Matricule = formation.responsable   
+                            WHERE id_formation = :zfomrmation");
+    $stmt->bindParam(":zfomrmation", $id_formation);
+    $stmt->execute();
+    return $stmt->fetch();
+
+}
+
+function getByFilter($dateStart, $dateFin,$GLthan, $type){
+    global $con;
+
+
+    $stmt = $con->prepare("SELECT * FROM `formation` WHERE `date_debut` > ? AND `date_debut` < ?");
+    $stmt->execute(array($dateStart, $dateFin));
+    return $stmt->fetchAll();
+}
+
 ?>

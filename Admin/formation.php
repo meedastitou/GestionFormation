@@ -131,8 +131,6 @@ if ($do == 'Manage') {
         </div>
     </div>
 
-
-
     <!-- Modal -->
     <div class="modal fade" id="detailsFormation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -247,11 +245,6 @@ if ($do == 'Manage') {
         </div>
     </div>
 
-
-
-
-
-
     <!-- Content -->
     <div class="page-content">
         <div class="container">
@@ -261,20 +254,13 @@ if ($do == 'Manage') {
                         <!-- card -->
                         <div class="card card-animate">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">Customers</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-success fs-14 mb-0">
-                                            <i class="fa-solid fa-square-arrow-up-right fs-13 align-middle"></i> +29.08 %
-                                        </h5>
-                                    </div>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <p class="text-uppercase fw-medium text-muted mb-0">Total</p>
                                 </div>
-                                <div class="text-center mt-4">
+                                <div class="text-center mt-2">
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M</h4>
-                                        <a href="#" class="text-decoration-underline">See details</a>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-2"><?php echo getCount(); ?></h4>
+                                        <a href="#" class="text-decoration-underline">See All formations</a>
                                     </div>
 
                                 </div>
@@ -286,21 +272,14 @@ if ($do == 'Manage') {
                         <!-- card -->
                         <div class="card card-animate bg-success">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium cl-w mb-0">Orders</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-warning fs-14 mb-0">
-                                            <i class="fa-solid fa-square-arrow-up-right fs-13 align-middle"></i> -3.57 %
-                                        </h5>
-                                    </div>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <p class="text-uppercase fw-medium cl-w mb-0">This year</p>
                                 </div>
-                                <div class="text-center mt-4">
+                                <div class="text-center mt-2">
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4 text-white"><span class="counter-value" data-target="36894">0</span></h4>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-2 text-white"><?php echo getCount("`year` = " . date('Y')) ?></h4>
                                         <a href="#" class="text-decoration-underline text-white-50">View all
-                                            orders</a>
+                                            Formations</a>
                                     </div>
 
                                 </div>
@@ -312,22 +291,15 @@ if ($do == 'Manage') {
                         <!-- card -->
                         <div class="card card-animate">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted mb-0">Customers</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-success fs-14 mb-0">
-                                            <i class="fa-solid fa-square-arrow-up-right fs-13 align-middle"></i> +29.08 %
-                                        </h5>
-                                    </div>
+                                <div class="d-flex justify-content-center  align-items-center">
+                                        <p class="text-uppercase fw-medium text-muted mb-0">unplanned this Year</p>
+                                    
                                 </div>
-                                <div class="text-center mt-4">
+                                <div class="text-center mt-2">
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M</h4>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-2"><?php echo getCount("`year` = " . date('Y') . " AND `date_debut` = 0000-0-0") ?></h4>
                                         <a href="#" class="text-decoration-underline">See details</a>
                                     </div>
-
                                 </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -337,21 +309,14 @@ if ($do == 'Manage') {
                         <!-- card -->
                         <div class="card card-animate bg-success">
                             <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium cl-w mb-0">Orders</p>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <h5 class="text-warning fs-14 mb-0">
-                                            <i class="fa-solid fa-square-arrow-up-right fs-13 align-middle"></i> -3.57 %
-                                        </h5>
-                                    </div>
+                                <div class="d-flex justify-content-center  align-items-center">
+                                        <p class="text-uppercase fw-medium cl-w mb-0">planned and unrealized</p>
+                                    
                                 </div>
-                                <div class="text-center mt-4">
+                                <div class="text-center mt-2">
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4 text-white"><span class="counter-value" data-target="36894">0</span></h4>
-                                        <a href="#" class="text-decoration-underline text-white-50">View all
-                                            orders</a>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-2 text-white"><?php echo getCount("realize = '0' AND `date_debut` != 0000-0-0 ") ?></h4>
+                                        <a href="#" class="text-decoration-underline text-white-50">View all</a>
                                     </div>
                                 </div>
                             </div><!-- end card body -->
@@ -361,10 +326,38 @@ if ($do == 'Manage') {
 
             </div>
             <!-- end widgets -->
-            <div class="row">
+            <div class="row mb-2 ">
                 <div class="col-12">
-                    <h5 class="text-decoration-underline mb-3 mt-2 pb-3">Last Formations</h5>
+                    <h5 class="text-decoration-underline mb-3 mt-2 pb-3">.Filter</h5>
                 </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label for="from" class="mb-1">From</label>
+                            <input type="date" id="from" class="input_filter"  onchange="getByFilter()">
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label for="to" class="mb-1">To</label>
+                            <input type="date" name="" id="to"  class="input_filter" onchange="getByFilter()">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-3 mb-2" >
+                    <label for="GreatLess" class="mb-1" >Greater/Less Than</label>
+                    <select name="" id="GLthan"  class="input_filter">
+                        <option value="1">Great Than</option>
+                        <option value="2">Less Than</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <label for="" class="mb-1">Option</label>
+                    <select name="" id="option" class="input_filter">
+                        <option value="1">All</option>
+                    </select>
+                </div> -->
+            </div>
+            <div id="welcome" class="mb-4 bg-w">
+
             </div>
             <!-- end row-->
 
@@ -467,6 +460,7 @@ if ($do == 'Manage') {
                     </div>
                 </div> <!-- end col-->
             </div> <!-- end row-->
+
             <div class="list-formation">
                 <div class="row">
                     <div class="col-12">
@@ -554,7 +548,7 @@ if ($do == 'Manage') {
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formationName" class="form-label">formation Name</label>
-                                    <input type="text" required class="form-control input-shadow" name="formationName" placeholder="Enter formation Name" id="formationName">
+                                    <input type="text"  class="form-control input-shadow" name="formationName" required placeholder="Enter formation Name" id="formationName">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -568,6 +562,12 @@ if ($do == 'Manage') {
                                 <div class="mb-3">
                                     <label for="objectif" class="form-label">Formation Objective</label>
                                     <textarea required class="form-control input-shadow" name="objectif" placeholder="Enter The purpose of this Formation" id="objectif"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="year" class="form-label">Year Concerned</label>
+                                    <input type="number" min='1990' max="2050" step="1" required class="form-control input-shadow" name="formationYear" placeholder="Enter Year Concerned" id="year">
                                 </div>
                             </div>
                             <!-- end col -->
@@ -599,14 +599,14 @@ if ($do == 'Manage') {
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="numberHoures" class="form-label">Number Of Houres</label>
-                                    <input type="Number" min="1" class="form-control input-shadow" name="numberHoures" placeholder="Enter Number of Houres for the formation" id="numberHoures">
+                                    <input type="Number" min="1" class="form-control input-shadow" required name="numberHoures" placeholder="Enter Number of Houres for the formation" id="numberHoures">
                                 </div>
                             </div>
                             <!-- end col -->
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="trainerName" required class="form-label">trainer's name</label>
-                                    <input type="text" class="form-control input-shadow" name="trainerName" placeholder="Enter trainer's name" id="trainerName">
+                                    <input type="text" class="form-control input-shadow" required name="trainerName" placeholder="Enter trainer's name" id="trainerName">
                                 </div>
                             </div>
                             <!--end col-->
@@ -627,7 +627,7 @@ if ($do == 'Manage') {
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="traininigSite" required class="form-label">training site </label>
-                                    <input type="text" class="form-control input-shadow" name="traininigSite" placeholder="Address 1" id="traininigSite">
+                                    <input type="text" class="form-control input-shadow" value="La RADEEL" required name="traininigSite" placeholder="Address 1" id="traininigSite">
                                 </div>
                             </div>
                             <!--end col-->
@@ -702,6 +702,7 @@ if ($do == 'Manage') {
             $formationName      = $_POST['formationName'];
             $formationCat       = $_POST['formationCat'];
             $objectif           = $_POST['objectif'];
+            $year               = $_POST['formationYear'];
             $proposedBy         = $_POST['proposedBy'];
             $numberHoures       = $_POST['numberHoures'];
             $trainerName        = $_POST['trainerName'];
@@ -715,6 +716,9 @@ if ($do == 'Manage') {
             $responsible        = $_POST['responsible'];
 
             $formErrors = validation($formationName, $formationCat, $objectif, $proposedBy, $numberHoures, $trainerName, $traininigSite, $nbParticepants, $dateStart, $dateFin, $responsible);
+            if(empty($year)){
+                $formErrors[] = "You Must Enter <strong>Year </strong>Of The formation";
+            }
             foreach ($formErrors as $error) {
                 echo '<div class="alert alert-danger">' . $error . '</div>';
             }
@@ -724,6 +728,7 @@ if ($do == 'Manage') {
                     $formationName,
                     $formationCat,
                     $proposedBy,
+                    $year,
                     $numberHoures,
                     $trainerName,
                     $trainerNumber,

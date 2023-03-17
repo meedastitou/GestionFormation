@@ -179,7 +179,7 @@ function showFormationDetails(id_formation){
     $("#DtrainerNumber").val(formation['num_formateur']);
     $("#DtrainerEmail").val(formation['email_formateur']);
     $("#DtraininigSite").val(formation['lieu_formation']);
-    $("#Dres").val(formation['responsable']);
+    $("#Dres").val(formation['Nom'] + " " + formation['Prenom']);
     $("#DdateStart").val(formation['date_debut']);
     $("#DdateFin").val(formation['date_fin']);
     $("#DCreatedBy").val(formation['created_by']);
@@ -194,6 +194,31 @@ function showFormationDetails(id_formation){
     }
 
 
+}
+
+function getByFilter(){
+    let from    = $("#from").val();
+    let to      = $("#to").val();
+    // let GLthan  = $("#GLthan").val();
+    // let option  = $("#option").val();
+
+    let x;
+    $.ajax({
+        url: "synchro.php",
+        type: "post",
+        async: false,
+        data: {
+            synchronisation: "",
+            do: "getByFilter",
+            date_debut: from,
+            date_fin: to,
+            
+        },
+        success: function (data, status) {
+            $("#welcome").html(data);
+        }
+    });
+    
 }
 
 window.onload = function(){

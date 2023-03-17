@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'includes/ConxionDB/connect.php'; // Conect With Database
     include 'includes/fonctions/CRUD.php';
     include 'includes/fonctions/functions.php';
+    
     if (isset($_POST['synchronisation'])) {
         if (isset($_POST['do'])) {
     
@@ -35,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
             } elseif ($_POST['do'] == 'getById' && isset($_POST['id_formation'])) {
 
-                $formation = getById($_POST['id_formation']);
+                $formation = getByIdWithEmp($_POST['id_formation']);
                 echo json_encode($formation);
 
-            }elseif ($_POST['do'] == 'Update' && isset($_POST['id_formaiton'])) {
+            } elseif ($_POST['do'] == 'Update' && isset($_POST['id_formaiton'])) {
                 $formErrors = validation($_POST['formationName'], $_POST['formationCat'],$_POST['objectif'],  $_POST['proposedBy'], 
                                         $_POST['numberHoures'], $_POST['trainerName'],  $_POST['traininigSite'], 
                                         $_POST['nbParticepants'], $_POST['dateStart'], $_POST['dateFin'], $_POST['responsable']);
@@ -66,6 +67,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 
 
+            } elseif($_POST['do'] == 'getByFilter'){
+                $formations = getByFilter($_POST['date_debut'], $_POST['date_fin'], '','');
+                ?>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="id_formation">id</th>
+                            <th class="name_formation">name</th>
+                            <th class="ex_in_formation">Ex/In</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($formations as $formation) {
+                            echo "<tr class='align-middle'>";
+                            echo '<th scope="row" class="id_formation" >' . $formation['id_formation'] . '</th>';
+                            echo '<td class="name_formation">' . $formation['nom_formation'] . '</td>';
+                            echo '<td class="ex_in_formation">' . $formation['formation_EX_IN'] . '</td>';
+                            echo '</tr>';
+                        }
+
+                        ?>
+                    </tbody>
+                </table>
+                <?php
             }
         }
         exit();
